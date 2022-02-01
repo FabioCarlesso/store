@@ -37,6 +37,6 @@ public class Produto  implements Serializable {
     @JsonBackReference
     @ManyToMany
     @JoinTable(name = "PRODUTO_CATEGORIA")
-    private List<Categoria> categorias = new ArrayList();
+    private List<Categoria> categorias = new ArrayList<>();
 
 }
