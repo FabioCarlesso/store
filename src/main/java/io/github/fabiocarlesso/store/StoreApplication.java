@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import io.github.fabiocarlesso.store.domain.Categoria;
 import io.github.fabiocarlesso.store.domain.Cidade;
+import io.github.fabiocarlesso.store.domain.Cliente;
+import io.github.fabiocarlesso.store.domain.Endereco;
 import io.github.fabiocarlesso.store.domain.Estado;
 import io.github.fabiocarlesso.store.domain.Produto;
+import io.github.fabiocarlesso.store.domain.enums.TipoCliente;
 import io.github.fabiocarlesso.store.repositories.CategoriaRepository;
 import io.github.fabiocarlesso.store.repositories.CidadeRepository;
+import io.github.fabiocarlesso.store.repositories.ClienteRepository;
+import io.github.fabiocarlesso.store.repositories.EnderecoRepository;
 import io.github.fabiocarlesso.store.repositories.EstadoRepository;
 import io.github.fabiocarlesso.store.repositories.ProdutoRepository;
 
@@ -30,6 +35,12 @@ public class StoreApplication implements CommandLineRunner {
 
 	@Autowired
 	EstadoRepository estadoRepository;
+
+	@Autowired
+	ClienteRepository clienteRepository;
+
+	@Autowired
+	EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(StoreApplication.class, args);
@@ -67,7 +78,17 @@ public class StoreApplication implements CommandLineRunner {
 
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
-		
+
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "213165165156", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("1651561651", "9484949494"));
+
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "651561651", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "8494496", cli1, c2);
+
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 	}
 
 }
