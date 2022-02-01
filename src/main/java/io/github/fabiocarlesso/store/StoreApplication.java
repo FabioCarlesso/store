@@ -12,6 +12,8 @@ import io.github.fabiocarlesso.store.domain.Cidade;
 import io.github.fabiocarlesso.store.domain.Estado;
 import io.github.fabiocarlesso.store.domain.Produto;
 import io.github.fabiocarlesso.store.repositories.CategoriaRepository;
+import io.github.fabiocarlesso.store.repositories.CidadeRepository;
+import io.github.fabiocarlesso.store.repositories.EstadoRepository;
 import io.github.fabiocarlesso.store.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -22,6 +24,12 @@ public class StoreApplication implements CommandLineRunner {
 
 	@Autowired
 	ProdutoRepository produtoRepository;
+
+	@Autowired
+	CidadeRepository cidadeRepository;
+
+	@Autowired
+	EstadoRepository estadoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(StoreApplication.class, args);
@@ -57,6 +65,9 @@ public class StoreApplication implements CommandLineRunner {
 		est1.getCidades().addAll(Arrays.asList(c1));
 		est2.getCidades().addAll(Arrays.asList(c2, c3));
 
+		estadoRepository.saveAll(Arrays.asList(est1, est2));
+		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+		
 	}
 
 }
